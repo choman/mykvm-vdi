@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+echo "Dpkg::Progress-Fancy \"1\";" | sudo tee /etc/apt/apt.conf.d/99progressbar
+
 #
 # setup ppas
 sudo add-apt-repository ppa:saiarcot895/myppa
@@ -16,8 +18,39 @@ sudo apt-get install -y di git axel ssh apt-fast
 sudo apt-fast dist-upgrade -y
 
 
-sudo apt-fast install qemu-kvm libvirt-bin sudo python python-requests virtinst socat libxml-xpath-perl virt-manager vde2 spice-client
-sudo apt-fast install mariadb-server apache2 php git libapache2-mod-php php-mbstring php-gettext php-ssh2 php-imagick php-mysql php-mail
+# install hypervisor
+sudo apt-fast install -y qemu-kvm libvirt-bin sudo python python-requests virtinst socat libxml-xpath-perl virt-manager vde2 
+
+#spice-client
+
+# install dashboard
+sudo apt-fast install -y mariadb-server apache2 php git libapache2-mod-php php-mbstring php-gettext php-ssh2 php-imagick php-mysql php-mail php-mcrypt
+
+
+
+#NOTES
+#
+# Add ServerName to /etc/apache2/apache2.conf
+##echo "ServerName <IP>" |sudo tee -a /etc/apache2/apache2.conf
+##sudo systemctl restart apache2
+##sudo apache2ctl configtest 
+
+# update /etc/apache2/mods-enabled/dir.conf
+# lookup index.php firste
+
+# install info.php
+
+
+# UFW setup
+
+#mysql seure install
+
+#create database
+sudo mysql -u root -pabcd1234 -e "create database vdi"
+sudo mysql -u root -pabcd1234 -e "create user vdi@localhost identified by 'vdi'"
+sudo mysql -u root -pabcd1234 -e "grant all privileges on vdi.* to vdi@localhost";
+
+
 
 cd /var/www/html/
 sudo git clone https://github.com/Seitanas/kvm-vdi
@@ -35,16 +68,7 @@ sudo git clone https://github.com/Seitanas/kvm-vdi
 ##   29  sudo systemctl disable apparmor.service 
 ##   30  useradd -s /bin/bash -m VDI
 ##   31  sudo useradd -s /bin/bash -m VDI
-##   32  ls
-##   33  cd ..
-##   34  ls -al
-##   35  cd
-##   36  ls
-##   37  history
-##   38  sudo apt-get install virt-manager 
-##   39  git
-##   40  l;s
-##   41  ls
+
 ##   42  mkdir kvm-vdi
 ##   43  ls
 ##   44  mv kvm-vdi mykvm-vdi/
