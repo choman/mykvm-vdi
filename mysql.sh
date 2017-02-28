@@ -1,10 +1,9 @@
 #!/bin/bash
 
 passwd=abcd1234
-db=vdi2
-user=vdi3
-userpass=vdi3
-
+db=vdi
+user=vdi
+userpass=vdi
 
 DEBUG=1
 
