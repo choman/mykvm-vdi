@@ -2,9 +2,20 @@
 
 
 #
-# setup apt-fast
+# setup ppas
+sudo add-apt-repository ppa:saiarcot895/myppa
+sudo add-apt-repository ppa:git-core/ppa
 
-sudo apt-fast update ; sudo apt-fast dist-upgrade -y
+#
+# update repo and install prereqs
+sudo apt-get update -qq
+sudo apt-get install -y di git axel ssh apt-fast
+
+#
+# update system 
+sudo apt-fast dist-upgrade -y
+
+
 sudo apt-fast install qemu-kvm libvirt-bin sudo python python-requests virtinst socat libxml-xpath-perl virt-manager vde2 spice-client
 sudo apt-fast install mariadb-server apache2 php git libapache2-mod-php php-mbstring php-gettext php-ssh2 php-imagick php-mysql php-mail
 
