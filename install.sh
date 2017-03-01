@@ -28,6 +28,16 @@ sudo apt-fast install -y qemu-kvm libvirt-bin sudo python python-requests virtin
 sudo apt-fast install -y mariadb-server apache2 php git libapache2-mod-php php-mbstring php-gettext php-ssh2 php-imagick php-mysql php-mail php-mcrypt python-numpy
 
 
+#
+# secure system
+echo "Securing Logon Screen"
+sudo tee -a /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf > /dev/null <<EOF
+allow-guest=false
+greeter-show-manual-login=true
+greeter-hide-users=true    
+EOF
+
+
 
 #NOTES
 #
