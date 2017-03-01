@@ -6,8 +6,8 @@ echo "Dpkg::Progress-Fancy \"1\";" | sudo tee /etc/apt/apt.conf.d/99progressbar
 
 #
 # setup ppas
-sudo add-apt-repository ppa:saiarcot895/myppa
-sudo add-apt-repository ppa:git-core/ppa
+sudo add-apt-repository -y ppa:saiarcot895/myppa
+sudo add-apt-repository -y ppa:git-core/ppa
 
 #
 # update repo and install prereqs
