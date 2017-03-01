@@ -14,6 +14,8 @@ sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt-get update -qq
 sudo apt-get install -y di git axel ssh apt-fast
 
+# need silent install of apt-fast
+
 #
 # update system 
 sudo apt-fast dist-upgrade -y
