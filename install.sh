@@ -38,6 +38,7 @@ sudo apache2ctl configtest
 
 # update /etc/apache2/mods-enabled/dir.conf
 # lookup index.php firste
+sudo sed -i -e 's/index.php //' -e 's/index.html/index.php &/' /etc/apache2/mods-enabled/dir.conf
 
 # install info.php
 
