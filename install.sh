@@ -52,6 +52,9 @@ sudo mysql -u root -pabcd1234 -e "create user vdi@localhost identified by 'vdi'"
 sudo mysql -u root -pabcd1234 -e "grant all privileges on vdi.* to vdi@localhost";
 
 
+# disable apparmour
+
+
 
 cd /var/www/html/
 sudo git clone https://github.com/Seitanas/kvm-vdi
