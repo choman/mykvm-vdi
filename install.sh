@@ -55,6 +55,27 @@ sudo mysql -u root -pabcd1234 -e "grant all privileges on vdi.* to vdi@localhost
 cd /var/www/html/
 sudo git clone https://github.com/Seitanas/kvm-vdi
 
+if [ ! -d "/var/hyper_keys" ]; then
+   echo "Creating key dir"
+   sudo mkdir -pv /var/hyper_keys
+fi
+
+
+#
+# Create VDI User
+VDI_SSH_HOME=/home/VDI/.ssh
+sudo useradd -s /bin/bash -m VDI
+echo > /tmp/do.txt
+echo >> /tmp/do.txt
+echo >> /tmp/do.txt
+
+sudo su VDI -c "ssh-keygen -t rsa" < /tmp/do.txt 
+sudo -s cp ${VDI_SSH_HOME}/id* /var/hyper_keys/
+sudo chmod 644 /var/hyper_keys/id_rsa
+sudo -u VDI cp ${VDI_SSH_HOME}/id_rsa.pub ${VDI_SSH_HOME}/authorized_keys
+
+
+
 ##   19  ls
 ##   20  sudo cp functions/config.php_dist functions/config.php
 ##   21  sudo vi functions/config.php
