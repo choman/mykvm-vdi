@@ -1,5 +1,6 @@
 #!/bin/bash
 
+SERVERIP=192.168.2.50
 
 echo "Dpkg::Progress-Fancy \"1\";" | sudo tee /etc/apt/apt.conf.d/99progressbar
 
@@ -24,16 +25,16 @@ sudo apt-fast install -y qemu-kvm libvirt-bin sudo python python-requests virtin
 #spice-client
 
 # install dashboard
-sudo apt-fast install -y mariadb-server apache2 php git libapache2-mod-php php-mbstring php-gettext php-ssh2 php-imagick php-mysql php-mail php-mcrypt
+sudo apt-fast install -y mariadb-server apache2 php git libapache2-mod-php php-mbstring php-gettext php-ssh2 php-imagick php-mysql php-mail php-mcrypt python-numpy
 
 
 
 #NOTES
 #
 # Add ServerName to /etc/apache2/apache2.conf
-##echo "ServerName <IP>" |sudo tee -a /etc/apache2/apache2.conf
-##sudo systemctl restart apache2
-##sudo apache2ctl configtest 
+echo "ServerName $SERVERIP" |sudo tee -a /etc/apache2/apache2.conf
+sudo systemctl restart apache2
+sudo apache2ctl configtest 
 
 # update /etc/apache2/mods-enabled/dir.conf
 # lookup index.php firste
@@ -55,6 +56,13 @@ sudo mysql -u root -pabcd1234 -e "grant all privileges on vdi.* to vdi@localhost
 cd /var/www/html/
 sudo git clone https://github.com/Seitanas/kvm-vdi
 
+KVMDIR=/var/www/html/kvm-vdi
+
+sudo cp /var/www/html/kvm-vdi/functions/config.php_dist \
+        /var/www/html/kvm-vdi/functions/config.php
+
+sudo sed -i "s/192.168.0.20/$SERVERIP/g" /var/www/html/kvm-vdi/functions/config.php
+
 if [ ! -d "/var/hyper_keys" ]; then
    echo "Creating key dir"
    sudo mkdir -pv /var/hyper_keys
@@ -70,9 +78,32 @@ echo >> /tmp/do.txt
 echo >> /tmp/do.txt
 
 sudo su VDI -c "ssh-keygen -t rsa" < /tmp/do.txt 
-sudo -s cp ${VDI_SSH_HOME}/id* /var/hyper_keys/
+sudo -s cp ${VDI_SSH_HOME}/id_rsa ${VDI_SSH_HOME}/id_rsa.pub /var/hyper_keys/
 sudo chmod 644 /var/hyper_keys/id_rsa
 sudo -u VDI cp ${VDI_SSH_HOME}/id_rsa.pub ${VDI_SSH_HOME}/authorized_keys
+
+
+# setup VDI users for sudo
+line=$(grep VDI ${KVMDIR}/hypervisors/sudoers)
+sudo sed  -i "/^root/ a  $line" /etc/sudoers
+
+# setup vdi agent
+VDI_AGENT_DIR=/usr/local/VDI
+
+if [ ! -d ${VDI_AGENT_DIR} ]; then
+    sudo mkdir -pv ${VDI_AGENT_DIR}
+fi
+
+sudo -s cp -v /var/www/html/kvm-vdi/hypervisors/* ${VDI_AGENT_DIR}
+sudo -s cp -v /var/www/html/kvm-vdi/hypervisors/vdi-agent.service /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable vdi-agent
+sudo systemctl start vdi-agent
+sudo systemctl status vdi-agent
+
+
+#
+##sudo cp 
 
 
 
