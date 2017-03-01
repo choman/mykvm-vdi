@@ -82,9 +82,9 @@ fi
 
 #
 # Create VDI User
-# $6$VULZjok1$8V7YYoddIJ23UCSQYI1Xua63ES1Qs6gJuWjt2HWAZCBmjJPqndQVgWBZfJ1HRosKfYpQE1ZUNqXffaaonj/6g/
+vdipass='$6$VULZjok1$8V7YYoddIJ23UCSQYI1Xua63ES1Qs6gJuWjt2HWAZCBmjJPqndQVgWBZfJ1HRosKfYpQE1ZUNqXffaaonj/6g/'
 VDI_SSH_HOME=/home/VDI/.ssh
-sudo useradd -s /bin/bash -m VDI
+sudo useradd -s /bin/bash -m VDI -p $vdipass
 echo > /tmp/do.txt
 echo >> /tmp/do.txt
 echo >> /tmp/do.txt
