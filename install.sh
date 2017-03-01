@@ -53,7 +53,9 @@ sudo mysql -u root -pabcd1234 -e "create user vdi@localhost identified by 'vdi'"
 sudo mysql -u root -pabcd1234 -e "grant all privileges on vdi.* to vdi@localhost";
 
 
-# disable apparmour
+# disable apparmor
+sudo systemctl stop apparmor.service 
+sudo systemctl disable apparmor.service
 
 
 
