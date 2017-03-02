@@ -14,7 +14,9 @@ sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt-get update -qq
 sudo apt-get install -y di git axel ssh apt-fast
 
+#####################################
 # need silent install of apt-fast
+#####################################
 
 #
 # update system 
@@ -127,29 +129,7 @@ sudo systemctl status vdi-agent
 
 
 #
-##sudo cp 
-
-
-
-##   19  ls
-##   20  sudo cp functions/config.php_dist functions/config.php
-##   21  sudo vi functions/config.php
-##   22  ls
-##   23  cd functions/
-##   24  ls -la
-##   25  vi config.php
-##   26  sudo vi config.php
-##   27  sudo apt-get install qemu-kvm libvirt-bin sudo python python-requests virtinst socat libxml-xpath-perl
-##   28  service apparmor stop
-##   29  sudo systemctl disable apparmor.service 
-##   30  useradd -s /bin/bash -m VDI
-##   31  sudo useradd -s /bin/bash -m VDI
-
-##   42  mkdir kvm-vdi
-##   43  ls
-##   44  mv kvm-vdi mykvm-vdi/
-##   45  cd mykvm-vdi/
-##   46  ls
-##   47  vi install.sh
-##   48  history
-##   49  history> install.sh 
+# Install websockify
+sudo  git clone https://github.com/kanaka/websockify /opt/websockify
+cd /opt/websockify
+./run --token-plugin TokenFile --token-source /tmp/kvm-vdi 5959 --daemon
