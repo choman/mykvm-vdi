@@ -121,6 +121,7 @@ if [ ! -d ${VDI_AGENT_DIR} ]; then
 fi
 
 sudo -s cp -v /var/www/html/kvm-vdi/hypervisors/* ${VDI_AGENT_DIR}
+sudo sed -i "s/192.168.0.20/$SERVERIP/g" ${VDI_AGENT_DIR}/config
 sudo -s cp -v /var/www/html/kvm-vdi/hypervisors/vdi-agent.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl enable vdi-agent
