@@ -63,7 +63,7 @@ sudo sed -i -e 's/index.php //' -e 's/index.html/index.php &/' /etc/apache2/mods
 
 #create database
 sudo mysql -u root -pabcd1234 -e "create database vdi"
-sudo mysql -u root -pabcd1234 -e "create user vdi@localhost identified by 'vdi'"
+sudo mysql -u root -pabcd1234 -e "create user 'vdi@localhost' identified by 'vdi'"
 sudo mysql -u root -pabcd1234 -e "grant all privileges on vdi.* to vdi@localhost";
 
 
