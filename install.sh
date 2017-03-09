@@ -12,7 +12,7 @@ sudo add-apt-repository -y ppa:git-core/ppa
 #
 # update repo and install prereqs
 sudo apt-get update -qq
-sudo apt-get install -y di git axel ssh apt-fast
+sudo apt-get install -y di git axel ssh apt-fast vlock tmux
 
 #####################################
 # need silent install of apt-fast
