@@ -134,3 +134,23 @@ sudo systemctl status vdi-agent
 sudo  git clone https://github.com/kanaka/websockify /opt/websockify
 cd /opt/websockify
 ./run --token-plugin TokenFile --token-source /tmp/kvm-vdi 5959 --daemon
+
+#
+# Not automated yet
+# - https://www.cyberciti.biz/faq/how-to-create-bridge-interface-ubuntu-linux/
+#
+echo "Setting up bridge IFC"
+sudo tee -a /etc/network/interfaces > /dev/null <<EOF
+
+auto br0
+iface br0 inet static
+  address 192.168.2.50
+  netmask 255.255.255.0
+  broadcast 192.168.2.255
+  bridge_ports enp0s25
+  bridge_stp off
+  bridge_fd 0
+  bridge_maxwait 0
+EOF
+
+sudo reboot
